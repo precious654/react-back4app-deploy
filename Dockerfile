@@ -1,17 +1,12 @@
-FROM node:14
+FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY public/ /usr/src/app/public
+COPY src/ /usr/src/app/src
+COPY package.json /usr/src/app/
 
 RUN npm install
 
-COPY . .
+CMD ["npm", "start"]
 
-RUN npm run build
-
-RUN npm install -g serve
-
-CMD ["serve", "-s", "build"]
-
-EXPOSE 3000
